@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Todo App</title>
+    <!--Imports various classes for styling (such as "ui form" and "ui center header")-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+</head>
+
+<body>
+    <div style="margin-top: 50px;" class="ui container">
+        <h1 class="ui center aligned header">My To Do App</h1>
+
+        <!-- The form for adding a new todo to the todo list. References the /add action
+        (whose functionality is defined in the Flask portion of the app). This will
+        add a new todo to the todo list-->
+        <form class="ui form" action="/add" method="post">
+            <div class="field">
+                <label>Todo Title</label>
+                <input type="text" name="title" placeholder="Enter Todo..."><br>
+            </div>
+            <!--Button for submitting the todo-->
+            <button class="ui blue button" type="submit">Add</button>
+        </form>
+
+        <hr>
+
+        <!--Loops over all the todos to display them onscreen with their completion
+        statuses.-->
+        {% for todo in todo_list %}
+        <div class="ui segment">
+            <!--Displays ID (or count) and the text for the todo-->
+            <p class="ui big header">{{todo.id }} | {{ todo.title }}</p>
+
+            <!--Display label to show whether a todo is complete or not-->
+            {% if todo.complete == False %}
+            <span class="ui gray label">Not Complete</span>
+            {% else %}
+            <span class="ui green label">Completed</span>
+            {% endif %}
+
+            <!--Button for toggling completion status, which triggers the /update/
+            action for the given todo. The display will also change accordingly-->
+            <a class="ui blue button" href="/update/{{ todo.id }}">Check</a>
+            <!--Button for deleting a todo entirely, which triggers the /delete/
+            action for the given todo-->
+            <a class="ui red button" href="/delete/{{ todo.id }}">Delete</a>
+        </div>
+        {% endfor %}
+        <!--Display the number of incomplete todos-->
+        <p>{{num_todos}} todos left to complete.</p>
+    </div>
+</body>
+
+</html>
