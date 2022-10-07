@@ -10,7 +10,7 @@ git clone https://github.com/19katz/flask-todo-app.git
 
 Once cloned locally, open up the to-do app by running the following commands (only run the first if Flask is not yet installed):
 * `python3 -m venv venv` (create a virtual environment)
-* `pip install Flask`
+* `pip3 install -r requirements.txt`
 * `python3 app.py`
 
 Then, navigate to the localhost link given on the terminal console. Ensure that Flask is installed before going to the link, or it will not work.
